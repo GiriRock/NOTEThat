@@ -1,4 +1,4 @@
-import {  NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import decodeJWT from "../../../middlewares/decodeJWT";
 import { prisma } from "../../../server/db/client";
 
@@ -9,18 +9,18 @@ type User = {
 }
 
 const getNotes = async (req: NextApiRequest, res: NextApiResponse, userObj: User) => {
-    if(req.method == 'GET'){
-        if(userObj){
-            try{
+    if (req.method == 'GET') {
+        if (userObj) {
+            try {
                 const notes = await prisma.note.findMany({
-                    where:{
+                    where: {
                         authorId: userObj._id
                     }
                 })
-                res.json({'notes' : notes})
-            }catch(err){
+                return res.json({ 'notes': notes })
+            } catch (err) {
                 console.log(err)
-                res.status(500).send(err)
+                return res.status(500).send(err)
             }
         }
     }
