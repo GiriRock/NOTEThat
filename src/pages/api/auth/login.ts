@@ -11,11 +11,12 @@ type Res = {
 
 const secret : Secret = process.env.TOKEN_SECRET + ''
 const login = async (req: NextApiRequest, res: NextApiResponse<Res>) => {
+    const emailId = req.body.email.toLowerCase()
     const error : Res = {message : "invalid username or password"}
     if(req.method == 'POST'){
         const userObj = await prisma.user.findUnique({
             where: {
-                email: req.body.email
+                email: emailId
             }
         })
         if (!userObj) return res.status(401).json(error)
@@ -33,8 +34,6 @@ const login = async (req: NextApiRequest, res: NextApiResponse<Res>) => {
             maxAge: 60 * 60 * 30,
             path: "/",
           });
-        //   console.log(process.env.NODE_ENV);
-          
           res.setHeader("Set-Cookie", serialised);
         res.status(200).json(resp)
     }else{

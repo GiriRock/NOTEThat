@@ -1,38 +1,87 @@
 import { GetServerSideProps, type NextPage } from "next";
 import Link from "next/link";
+import { useState } from "react";
 import DisplayNote from "../../components/DisplayNote";
+import Main from "../../components/Main";
+import Sidebar from "../../components/SideBar";
 import getNotes from "../../utils/getNotes";
-
+const jwt = require('jsonwebtoken')
 
 type Note = {
-  _id: string,
-  title : string,
+  id: string,
+  title: string,
   body: string
 }
 
 type Notes = {
-  Notes : Note[]
+  Notes: Note[]
 }
 
 type UserInfo = {
-  Name : string
+  Name: string,
+  Token: string
 }
 
-type props ={
-  Notes : Notes,
-  UserInfo : UserInfo
+type props = {
+  Notes: Notes,
+  UserInfo: UserInfo
 }
-const Home = ({Notes,UserInfo}: props) => {
-  const noteObjs = Notes?.Notes
-  console.log(Notes)
+const Home = ({ Notes, UserInfo }: props) => {
+  const [notes, setNotes] = useState(Notes?.Notes);
+  const [activeNote, setActiveNote] = useState('');
+  const onAddNote = () => {
+    const newNote = {
+      id : '123',
+      title: "Untitled Note",
+      body: "",
+    };
+
+    setNotes([newNote, ...notes]);
+    setActiveNote(newNote.id);
+  };
+  const onDeleteNote = async (noteId : string) => {
+    setNotes(notes.filter(({ id }) => id !== noteId));
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notes/updateNote`, {
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${UserInfo.Token}`
+      },
+      body: JSON.stringify({
+          "_id" : noteId
+      })
+  })
+  console.log(response)
+  };
+
+  const onUpdateNote = (updatedNote : Note) => {
+    const updatedNotesArr = notes.map((note) => {
+      if (note.id === updatedNote.id) {
+        return updatedNote;
+      }
+
+      return note;
+    });
+
+    setNotes(updatedNotesArr);
+  };
+
+  const getActiveNote = () => {
+    return notes.find(({ id }) => id === activeNote);
+  };
   return (
-    <>
-      <main className="flex h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-          {noteObjs?.map((note)=>(<DisplayNote key={note._id} title={note.title} body={note.body}  />))}
-        </div>
-      </main>
-    </>
+    
+    <div className="App mt-2">
+    <Sidebar
+        userinfo = {UserInfo}
+        notes={notes}
+        onAddNote={onAddNote}
+        onDeleteNote={onDeleteNote}
+        activeNote={activeNote}
+        setActiveNote={setActiveNote}
+      />
+    <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} token = {UserInfo.Token}/>
+    </div>
   );
 };
 
@@ -41,9 +90,16 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const notes = await getNotes(req.cookies)
+  const token = req.cookies.OursiteJWT
+  var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+  const userinfo = {
+    Name: decoded.name,
+    Token: token
+  }
   return {
     props: {
-      Notes : notes
-    }, 
+      Notes: notes,
+      UserInfo: userinfo
+    },
   }
 }

@@ -9,10 +9,11 @@ type Message = {
 import { prisma } from "../../../server/db/client";
 
 const register = async (req: NextApiRequest, res: NextApiResponse<Message>) => {
+    const emailId = req.body.email.toLowerCase()
     if(req.method == 'POST'){
         try {
             const emailExist = await prisma.user.findUnique({
-                where: { email: req.body.email }
+                where: { email: emailId }
             })
             if (emailExist) return res.status(400).json({message : 'Email already exists'})
         } catch (error) {

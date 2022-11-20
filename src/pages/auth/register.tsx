@@ -66,7 +66,7 @@ const Container: React.FC = () => {
     }
     return (
         <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-            <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
+            <div className="p-12 w-4/5 m-auto bg-white rounded-md border border-black/30 shadow-md md:w-3/4 lg:max-w-xl">
                 <div className='hidden' id='loader'>
                     <ThreeDots
                         height="100"
@@ -78,7 +78,7 @@ const Container: React.FC = () => {
                     />
                 </div>
                 <div id = 'form'>
-                    <h1 className="text-3xl font-semibold text-center text-purple-700 underline ">
+                    <h1 className="text-3xl font-semibold text-center text-black">
                         Sign up
                     </h1>
 
@@ -97,9 +97,10 @@ const Container: React.FC = () => {
                             </label>
                             <input
                                 type="text"
+                                placeholder='Enter your Full Name'
                                 onChange={(e) => setName(e.target.value)}
                                 required
-                                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                className="block w-full px-4 py-2 mt-2 text-white bg-black border border-black rounded-md focus:bg-white focus:outline-none focus:text-black"
                             />
                         </div>
                         <div className="mb-2">
@@ -111,9 +112,10 @@ const Container: React.FC = () => {
                             </label>
                             <input
                                 type="email"
+                                placeholder='Enter your Email'
                                 onChange={(e) => setUserName(e.target.value)}
                                 required
-                                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                className="block w-full px-4 py-2 mt-2 text-white bg-black border border-black rounded-md focus:bg-white focus:outline-none focus:text-black"
                             />
                         </div>
                         <div className="mb-2">
@@ -125,9 +127,10 @@ const Container: React.FC = () => {
                             </label>
                             <input
                                 type="password"
+                                placeholder='Enter Password'
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
-                                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                className="block w-full px-4 py-2 mt-2 text-white bg-black border border-black rounded-md focus:bg-white focus:outline-none focus:text-black"
                             />
                         </div>
                         <div className="mb-2">
@@ -139,20 +142,21 @@ const Container: React.FC = () => {
                             </label>
                             <input
                                 type="password"
+                                placeholder='Confirm Password'
                                 onChange={(e) => setCPassword(e.target.value)}
                                 required
-                                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                className="block w-full px-4 py-2 mt-2 text-white bg-black border border-black rounded-md focus:bg-white focus:outline-none focus:text-black"
                             />
                         </div>
                         <Link
                             href=""
-                            className="text-xs text-purple-600 hover:underline"
+                            className="text-xs font-semibold text-black hover:underline"
                         >
                             Forget Password?
                         </Link>
-                        <div className="mt-6">
+                        <div className="mt-6 flex justify-center">
                             <button type='submit'
-                                className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+                                className="w-2/4 px-4 py-2 tracking-wide text-black transition-colors duration-200 transform bg-white border border-black rounded-md hover:bg-black hover:text-white">
                                 Register
                             </button>
                         </div>
@@ -163,7 +167,7 @@ const Container: React.FC = () => {
                         already have an account?&nbsp;
                         <Link
                             href="/auth/login"
-                            className="font-medium text-purple-600 hover:underline"
+                            className="font-medium text-black hover:underline"
                         >
                             Login
                         </Link>
