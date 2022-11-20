@@ -33,7 +33,7 @@ const login = async (req: NextApiRequest, res: NextApiResponse<Res>) => {
             maxAge: 60 * 60 * 30,
             path: "/",
           });
-          console.log(process.env.NODE_ENV);
+        //   console.log(process.env.NODE_ENV);
           
           res.setHeader("Set-Cookie", serialised);
         res.status(200).json(resp)
