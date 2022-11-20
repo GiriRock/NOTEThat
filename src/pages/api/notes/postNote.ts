@@ -8,7 +8,11 @@ type User = {
     iat: number
 }
 
-const postNote = async (req: NextApiRequest, res: NextApiResponse, userObj: User) => {
+type Res = {
+    id : string
+}
+
+const postNote = async (req: NextApiRequest, res: NextApiResponse<Res>, userObj: User) => {
     if(req.method == 'POST'){
         if(userObj){
             try{
@@ -19,14 +23,14 @@ const postNote = async (req: NextApiRequest, res: NextApiResponse, userObj: User
                         authorId: userObj._id
                     }
                 })
-                res.status(200).send(note.id)
+               return res.status(200).json({id: note.id})
             }catch(err){
                 console.log(err)
-                res.status(500).send(err)
+               return res.status(500).send({id: 'error'})
             }
         }
     }
-    res.status(405).send(`${req.method} not allowed`)
+    res.status(405).send({id: `${req.method} not allowed`})
 };
 
 export default decodeJWT(postNote);

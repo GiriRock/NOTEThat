@@ -27,7 +27,7 @@ const Main = ({ activeNote, onUpdateNote, token } : props) => {
                 form.style.display = 'none'
             }
         }
-        if (activeNote.id != ''){
+        if (!activeNote.fv){
             const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notes/updateNote`, {
                 method: "POST",
                 headers: {
@@ -40,7 +40,6 @@ const Main = ({ activeNote, onUpdateNote, token } : props) => {
                     "body": activeNote.body
                 })
             })
-            console.log(response)
         }else{
             const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notes/postNote`, {
                 method: "POST",
@@ -52,8 +51,9 @@ const Main = ({ activeNote, onUpdateNote, token } : props) => {
                     "title": activeNote.title,
                     "body": activeNote.body
                 })
-            })
-            console.log(response)
+              })
+              const data = await response.json()
+              console.log(data);
         }
         if (loader){
             if(form){

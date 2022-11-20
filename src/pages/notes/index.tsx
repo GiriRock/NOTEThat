@@ -5,12 +5,14 @@ import DisplayNote from "../../components/DisplayNote";
 import Main from "../../components/Main";
 import Sidebar from "../../components/SideBar";
 import getNotes from "../../utils/getNotes";
+import { uuid } from "../../utils/uuid";
 const jwt = require('jsonwebtoken')
 
 type Note = {
   id: string,
   title: string,
-  body: string
+  body: string,
+  fv: boolean
 }
 
 type Notes = {
@@ -31,16 +33,18 @@ const Home = ({ Notes, UserInfo }: props) => {
   const [activeNote, setActiveNote] = useState('');
   const onAddNote = () => {
     const newNote = {
-      id : '',
+      id : uuid(),
       title: "Untitled Note",
       body: "",
+      fv: true
     };
-
     setNotes([newNote, ...notes]);
     setActiveNote(newNote.id);
   };
   const onDeleteNote = async (noteId : string) => {
     setNotes(notes.filter(({ id }) => id !== noteId));
+    console.log(noteId);
+    
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notes/deleteNote`, {
       method: "POST",
       headers: {
