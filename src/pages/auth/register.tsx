@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { ThreeDots } from 'react-loader-spinner';
@@ -6,8 +7,10 @@ const Container: React.FC = () => {
 
     const [error, setError] = React.useState('')
     const [username, setUserName] = React.useState('')
+    const [name, setName] = React.useState('')
     const [password, setPassword] = React.useState('')
-
+    const [cpassword, setCPassword] = React.useState('')
+    
     const router = useRouter()
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -20,21 +23,39 @@ const Container: React.FC = () => {
                 form.style.display = 'none'
             }
         }
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`, {
+        if (password != cpassword){
+            if (loader){
+                if(form){
+                    loader.style.display = 'none'
+                    form.style.display = 'block'
+                }
+            }
+           return setError('Passwords Must Match')
+        }
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/register`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 "email": username,
+                "name": name,
                 "password": password
             })
         })
-        if (response.status == 401) {
-            setError('Invalid Username or password')
+        if (loader){
+            if(form){
+                loader.style.display = 'none'
+                form.style.display = 'block'
+            }
+        }
+
+        if (response.status == 200) {
+            router.replace('/auth/login')
+            
         } else {
-            console.log('sucess')
-            router.replace('/notes')
+            const data = await response.json()
+            setError(data.message)
         }
         if (loader){
             if(form){
@@ -58,7 +79,7 @@ const Container: React.FC = () => {
                 </div>
                 <div id = 'form'>
                     <h1 className="text-3xl font-semibold text-center text-purple-700 underline ">
-                        Sign in
+                        Sign up
                     </h1>
 
                     {error && (
@@ -67,6 +88,20 @@ const Container: React.FC = () => {
                     <form
                         onSubmit={(e) => handleSubmit(e)}
                         className="mt-6">
+                        <div className="mb-2">
+                            <label
+                                htmlFor="text"
+                                className="block text-sm font-semibold text-gray-800"
+                            >
+                                Full Name
+                            </label>
+                            <input
+                                type="text"
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                            />
+                        </div>
                         <div className="mb-2">
                             <label
                                 htmlFor="email"
@@ -95,6 +130,20 @@ const Container: React.FC = () => {
                                 className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
                             />
                         </div>
+                        <div className="mb-2">
+                            <label
+                                htmlFor="password"
+                                className="block text-sm font-semibold text-gray-800"
+                            >
+                               Confirm Password
+                            </label>
+                            <input
+                                type="password"
+                                onChange={(e) => setCPassword(e.target.value)}
+                                required
+                                className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                            />
+                        </div>
                         <a
                             href=""
                             className="text-xs text-purple-600 hover:underline"
@@ -104,20 +153,20 @@ const Container: React.FC = () => {
                         <div className="mt-6">
                             <button type='submit'
                                 className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
-                                Login
+                                Register
                             </button>
                         </div>
                     </form>
 
                     <p className="mt-8 text-xs font-light text-center text-gray-700">
                         &nbsp;
-                        Don&apos;t have an account?&nbsp;
-                        <a
-                            href="/auth/register"
+                        already have an account?&nbsp;
+                        <Link
+                            href="/auth/login"
                             className="font-medium text-purple-600 hover:underline"
                         >
-                            Sign up
-                        </a>
+                            Login
+                        </Link>
                     </p>
                 </div>
             </div>
