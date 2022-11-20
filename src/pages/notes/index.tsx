@@ -41,7 +41,8 @@ const Home = ({ Notes, UserInfo }: props) => {
   };
   const onDeleteNote = async (noteId : string) => {
     setNotes(notes.filter(({ id }) => id !== noteId));
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notes/updateNote`, {
+    console.log(noteId)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notes/deleteNote`, {
       method: "POST",
       headers: {
           'Content-Type': 'application/json',
@@ -91,7 +92,7 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const notes = await getNotes(req.cookies)
   const token = req.cookies.OursiteJWT
-  var decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+  let decoded = jwt.verify(token, process.env.TOKEN_SECRET);
   const userinfo = {
     Name: decoded.name,
     Token: token
