@@ -31,7 +31,7 @@ const Home = ({ Notes, UserInfo }: props) => {
   const [activeNote, setActiveNote] = useState('');
   const onAddNote = () => {
     const newNote = {
-      id : '123',
+      id : '',
       title: "Untitled Note",
       body: "",
     };

@@ -27,7 +27,7 @@ const Main = ({ activeNote, onUpdateNote, token } : props) => {
                 form.style.display = 'none'
             }
         }
-        if (activeNote.id){
+        if (activeNote.id != ''){
             const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notes/updateNote`, {
                 method: "POST",
                 headers: {
