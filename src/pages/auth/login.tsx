@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
-const [error, setError] = React.useState('')
-const [username, setUserName] = React.useState('')
-const [password, setPassword] = React.useState('')
+const Container : React.FC = () => {
 
-export default function login() {
+    const [error, setError] = React.useState('')
+    const [username, setUserName] = React.useState('')
+    const [password, setPassword] = React.useState('')
 
     const router = useRouter()
     const handleSubmit = async (e: React.FormEvent) => {
@@ -100,3 +100,5 @@ export default function login() {
         </div>
     );
 }
+
+export default Container
