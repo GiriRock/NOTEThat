@@ -1,15 +1,17 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 
+const [error, setError] = React.useState('')
+const [username, setUserName] = React.useState('')
+const [password, setPassword] = React.useState('')
+
 export default function login() {
-    const [error, setError] = React.useState('')
-    const [username, setUserName] = React.useState('')
-    const [password, setPassword] = React.useState('')
+
     const router = useRouter()
-    const handleSubmit = async (e: React.FormEvent)=>{
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         console.log(e);
-        
+
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`, {
             method: "POST",
             headers: {
@@ -21,10 +23,10 @@ export default function login() {
             })
         })
         console.log(response);
-        
-        if(response.status == 401){
+
+        if (response.status == 401) {
             setError('Invalid Username or password')
-        }else{
+        } else {
             console.log('sucess')
             router.replace('/notes')
         }
@@ -33,15 +35,15 @@ export default function login() {
         <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
             <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
                 <h1 className="text-3xl font-semibold text-center text-purple-700 underline">
-                   Sign in
+                    Sign in
                 </h1>
 
                 {error && (
                     <h1 className='p-3 text-2xl font-semibold text-center text-red-500'>{error}</h1>
                 )}
-                <form 
-                onSubmit={(e)=>handleSubmit(e)}
-                className="mt-6">
+                <form
+                    onSubmit={(e) => handleSubmit(e)}
+                    className="mt-6">
                     <div className="mb-2">
                         <label
                             htmlFor="email"
@@ -78,7 +80,7 @@ export default function login() {
                     </a>
                     <div className="mt-6">
                         <button type='submit'
-                        className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
+                            className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600">
                             Login
                         </button>
                     </div>
