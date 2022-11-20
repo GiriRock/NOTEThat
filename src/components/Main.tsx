@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown";
 type props = {
     activeNote: any,
     onUpdateNote: any,
-    token: string
+    token: string,
 }
 
 const Main = ({ activeNote, onUpdateNote, token } : props) => {
@@ -54,6 +54,7 @@ const Main = ({ activeNote, onUpdateNote, token } : props) => {
               })
               const data = await response.json()
               console.log(data);
+              activeNote.id = data.id
         }
         if (loader){
             if(form){

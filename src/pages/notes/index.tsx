@@ -33,7 +33,7 @@ const Home = ({ Notes, UserInfo }: props) => {
   const [activeNote, setActiveNote] = useState('');
   const onAddNote = () => {
     const newNote = {
-      id : uuid(),
+      id: uuid(),
       title: "Untitled Note",
       body: "",
       fv: true
@@ -41,24 +41,25 @@ const Home = ({ Notes, UserInfo }: props) => {
     setNotes([newNote, ...notes]);
     setActiveNote(newNote.id);
   };
-  const onDeleteNote = async (noteId : string) => {
+  const onDeleteNote = async (noteId: string) => {
     setNotes(notes.filter(({ id }) => id !== noteId));
     console.log(noteId);
-    
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notes/deleteNote`, {
-      method: "POST",
-      headers: {
+    if (!noteId.includes('-')) {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notes/deleteNote`, {
+        method: "POST",
+        headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${UserInfo.Token}`
-      },
-      body: JSON.stringify({
-          "_id" : noteId
+        },
+        body: JSON.stringify({
+          "_id": noteId
+        })
       })
-  })
-  console.log(response)
+      console.log(response)
+    }
   };
 
-  const onUpdateNote = (updatedNote : Note) => {
+  const onUpdateNote = (updatedNote: Note) => {
     const updatedNotesArr = notes.map((note) => {
       if (note.id === updatedNote.id) {
         return updatedNote;
@@ -74,17 +75,17 @@ const Home = ({ Notes, UserInfo }: props) => {
     return notes.find(({ id }) => id === activeNote);
   };
   return (
-    
+
     <div className="App mt-2">
-    <Sidebar
-        userinfo = {UserInfo}
+      <Sidebar
+        userinfo={UserInfo}
         notes={notes}
         onAddNote={onAddNote}
         onDeleteNote={onDeleteNote}
         activeNote={activeNote}
         setActiveNote={setActiveNote}
       />
-    <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} token = {UserInfo.Token}/>
+      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} token={UserInfo.Token}/>
     </div>
   );
 };

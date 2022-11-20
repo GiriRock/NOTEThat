@@ -22,7 +22,7 @@ export function uuid() {
       '8',
       '9'
     ]
-    let uuid = []
+    const uuid = []
     for (let i = 0; i < 35; i++) {
       if (i === 7 || i === 12 || i === 17 || i === 22) {
         uuid[i] = '-'
