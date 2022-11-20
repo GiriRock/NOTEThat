@@ -34,7 +34,7 @@ const Container: React.FC = () => {
             setError('Invalid Username or password')
         } else {
             console.log('sucess')
-            router.replace('/notes')
+             return router.replace('/notes')
         }
         if (loader){
             if(form){

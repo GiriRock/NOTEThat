@@ -8,16 +8,27 @@ type User = {
     iat: number
 }
 
-const getNotes = async (req: NextApiRequest, res: NextApiResponse, userObj: User) => {
+type Note = {
+    title : string,
+  body: string
+}
+
+type Notes = {
+   Notes : Note[]
+}
+
+const getNotes= async <Notes>  (req: NextApiRequest, res: NextApiResponse, userObj: User) => {
     if (req.method == 'GET') {
         if (userObj) {
             try {
-                const notes = await prisma.note.findMany({
+                const response = await prisma.note.findMany({
                     where: {
                         authorId: userObj._id
                     }
                 })
-                return res.json({ 'notes': notes })
+                return res.json({
+                    Notes : response
+                })
             } catch (err) {
                 console.log(err)
                 return res.status(500).send(err)

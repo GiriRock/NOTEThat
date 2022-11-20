@@ -9,7 +9,7 @@ type Res = {
     message : string
 }
 
-const secret : Secret = `process.env.TOKEN_SECRET`
+const secret : Secret = process.env.TOKEN_SECRET + ''
 const login = async (req: NextApiRequest, res: NextApiResponse<Res>) => {
     const error : Res = {message : "invalid username or password"}
     if(req.method == 'POST'){
