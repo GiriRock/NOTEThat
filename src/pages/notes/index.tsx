@@ -4,6 +4,7 @@ import { useState } from "react";
 import DisplayNote from "../../components/DisplayNote";
 import Main from "../../components/Main";
 import Sidebar from "../../components/SideBar";
+import SideNavBar from "../../components/SideNavBar";
 import getNotes from "../../utils/getNotes";
 import { uuid } from "../../utils/uuid";
 const jwt = require('jsonwebtoken')
@@ -75,8 +76,8 @@ const Home = ({ Notes, UserInfo }: props) => {
     return notes.find(({ id }) => id === activeNote);
   };
   return (
-
     <div className="App mt-2">
+      <SideNavBar userName={UserInfo.Name} currentLocation={"Notes"} />
       <Sidebar
         userinfo={UserInfo}
         notes={notes}
@@ -101,6 +102,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     Name: decoded.name,
     Token: token
   }
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  )
   return {
     props: {
       Notes: notes,
