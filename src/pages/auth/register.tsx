@@ -65,14 +65,14 @@ const Container: React.FC = () => {
         }
     }
     return (
-        <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
-            <div className="p-12 w-4/5 m-auto bg-white rounded-md border border-black/30 shadow-md md:w-3/4 lg:max-w-xl">
+        <div className="relative flex flex-col justify-center min-h-screen overflow-hidden bg-black">
+            <div className="p-12 w-4/5 m-auto bg-white rounded-3xl border border-black/30 shadow-md md:w-3/4 lg:max-w-xl">
                 <div className='hidden' id='loader'>
                     <ThreeDots
                         height="100"
                         width="100"
                         radius="10"
-                        color="#7e22ce"
+                        color="#000"
                         ariaLabel="three-dots-loading"
                         wrapperClass='justify-center'
                     />
@@ -100,7 +100,7 @@ const Container: React.FC = () => {
                                 placeholder='Enter your Full Name'
                                 onChange={(e) => setName(e.target.value)}
                                 required
-                                className="block w-full px-4 py-2 mt-2 text-white bg-black border border-black rounded-md focus:bg-white focus:outline-none focus:text-black"
+                                className="placeholder-slate-200 focus:placeholder-gray-700 block w-full px-4 py-2 mt-2 text-white bg-black border border-black rounded-md focus:bg-white focus:outline-none focus:text-black"
                             />
                         </div>
                         <div className="mb-2">
@@ -115,7 +115,7 @@ const Container: React.FC = () => {
                                 placeholder='Enter your Email'
                                 onChange={(e) => setUserName(e.target.value)}
                                 required
-                                className="block w-full px-4 py-2 mt-2 text-white bg-black border border-black rounded-md focus:bg-white focus:outline-none focus:text-black"
+                                className="placeholder-slate-200 focus:placeholder-gray-700 block w-full px-4 py-2 mt-2 text-white bg-black border border-black rounded-md focus:bg-white focus:outline-none focus:text-black"
                             />
                         </div>
                         <div className="mb-2">
@@ -130,7 +130,7 @@ const Container: React.FC = () => {
                                 placeholder='Enter Password'
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
-                                className="block w-full px-4 py-2 mt-2 text-white bg-black border border-black rounded-md focus:bg-white focus:outline-none focus:text-black"
+                                className="placeholder-slate-200 focus:placeholder-gray-700 block w-full px-4 py-2 mt-2 text-white bg-black border border-black rounded-md focus:bg-white focus:outline-none focus:text-black"
                             />
                         </div>
                         <div className="mb-2">
@@ -145,7 +145,7 @@ const Container: React.FC = () => {
                                 placeholder='Confirm Password'
                                 onChange={(e) => setCPassword(e.target.value)}
                                 required
-                                className="block w-full px-4 py-2 mt-2 text-white bg-black border border-black rounded-md focus:bg-white focus:outline-none focus:text-black"
+                                className="placeholder-slate-200 focus:placeholder-gray-700 block w-full px-4 py-2 mt-2 text-white bg-black border border-black rounded-md focus:bg-white focus:outline-none focus:text-black"
                             />
                         </div>
                         <Link
@@ -156,7 +156,7 @@ const Container: React.FC = () => {
                         </Link>
                         <div className="mt-6 flex justify-center">
                             <button type='submit'
-                                className="w-2/4 px-4 py-2 tracking-wide text-black transition-colors duration-200 transform bg-white border border-black rounded-md hover:bg-black hover:text-white">
+                                className="w-2/4 px-4 py-2 tracking-wide text-black transition-colors duration-200 transform bg-white border border-solid border-black rounded-md hover:bg-black hover:text-white">
                                 Register
                             </button>
                         </div>

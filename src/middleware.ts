@@ -3,6 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 export async function middleware(req: NextRequest) {
     const { cookies } = req;
     const jwt = cookies.get('OursiteJWT')?.value
+    if(req.url == process.env.NEXT_PUBLIC_BASE_URL+'/' && jwt){
+        return NextResponse.rewrite(new URL('/notes', req.url))
+    }
     if(req.url.includes('/auth')){
         if (jwt) {
             return NextResponse.rewrite(new URL('/notes', req.url))
@@ -17,5 +20,5 @@ export async function middleware(req: NextRequest) {
     
 }
 export const config = {
-    matcher: ['/notes/:path*' , '/auth/:path*' ],
+    matcher: ['/notes/:path*' , '/auth/:path*', '/' ],
 }
