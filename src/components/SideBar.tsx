@@ -1,10 +1,11 @@
+import SearchBar from "./SearchBar"
 
 type Note = {
     id: string, title: string, body: string
 }
 type UserInfo = {
     Name: string
-  }
+}
 
 type props = {
     userinfo : UserInfo
@@ -12,11 +13,12 @@ type props = {
     onAddNote : any,
     onDeleteNote: any,
     activeNote: any,
-    setActiveNote: any
+    setActiveNote: any,
+    setNotes: any
 }
 
 function Sidebar({
-  userinfo,  notes , onAddNote, onDeleteNote, activeNote, setActiveNote,
+  userinfo,  notes , onAddNote, onDeleteNote, activeNote, setActiveNote, setNotes
 } : props) {
     // const sortedNotes = notes.sort((a, b) => b.lastModified - a.lastModified);
     return (
@@ -25,7 +27,10 @@ function Sidebar({
                 <h1>{userinfo?.Name}&apos;s Notes</h1>
                 <button onClick={onAddNote}>Add</button>
             </div>
-            <div className="app-sidebar-notes">
+            <div>
+                <SearchBar setNotes={setNotes} notes={notes} />
+            </div>
+            <div className="app-sidebar-notes scrollbar-thin scrollbar-track-white scrollbar-thumb-black">
                 {notes.map(({ id, title, body }, i) => (
                     <div
                         key={id}

@@ -27,12 +27,12 @@ const updateNote = async (req: NextApiRequest, res: NextApiResponse, userObj: Us
                         id: note.id
                     }
                 })
-                res.status(200).send(note.id)
+                return res.status(200).send(note.id)
             }
                return res.send('null')
             }catch(err){
                 console.log(err)
-                res.status(500).send(err)
+                return res.status(500).send(err)
             }
         }
     }

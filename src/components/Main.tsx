@@ -1,4 +1,6 @@
 import ReactMarkdown from "react-markdown";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 type props = {
     activeNote: any,
@@ -7,6 +9,7 @@ type props = {
 }
 
 const Main = ({ activeNote, onUpdateNote, token } : props) => {
+
   const onEditField = (field: string, value: string) => {
     onUpdateNote({
       ...activeNote,
@@ -40,6 +43,7 @@ const Main = ({ activeNote, onUpdateNote, token } : props) => {
                     "body": activeNote.body
                 })
             })
+            toast.success('Updated Successfully');
         }else{
             const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/notes/postNote`, {
                 method: "POST",
@@ -53,7 +57,7 @@ const Main = ({ activeNote, onUpdateNote, token } : props) => {
                 })
               })
               const data = await response.json()
-              console.log(data);
+              toast.success('Saved Successfully');
               activeNote.id = data.id
         }
         if (loader){
@@ -64,8 +68,20 @@ const Main = ({ activeNote, onUpdateNote, token } : props) => {
         }
     }
    return (
-    <div className="app-main">
+    <div className="app-main mt-12">
       <div className="app-main-note-edit mb-10">
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <form 
       onSubmit={(e) => handleSave(e)}>
           <input
@@ -96,7 +112,3 @@ const Main = ({ activeNote, onUpdateNote, token } : props) => {
 };
 
 export default Main;
-function onUpdateNote(arg0: any) {
-    throw new Error("Function not implemented.");
-}
-

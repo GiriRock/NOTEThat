@@ -1,6 +1,7 @@
 import { GetServerSideProps, type NextPage } from "next";
 import Link from "next/link";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import DisplayNote from "../../components/DisplayNote";
 import Main from "../../components/Main";
 import Sidebar from "../../components/SideBar";
@@ -57,6 +58,7 @@ const Home = ({ Notes, UserInfo }: props) => {
         })
       })
       console.log(response)
+      toast.error('deleted Successfully');
     }
   };
 
@@ -77,6 +79,18 @@ const Home = ({ Notes, UserInfo }: props) => {
   };
   return (
     <div className="App mt-2">
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <SideNavBar userName={UserInfo.Name} currentLocation={"Notes"} />
       <Sidebar
         userinfo={UserInfo}
@@ -84,8 +98,7 @@ const Home = ({ Notes, UserInfo }: props) => {
         onAddNote={onAddNote}
         onDeleteNote={onDeleteNote}
         activeNote={activeNote}
-        setActiveNote={setActiveNote}
-      />
+        setActiveNote={setActiveNote} setNotes={setNotes}      />
       <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} token={UserInfo.Token}/>
     </div>
   );

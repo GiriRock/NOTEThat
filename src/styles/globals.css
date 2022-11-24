@@ -15,7 +15,7 @@
 
 * {
   box-sizing: border-box;
-  font-family: 'Prompt', sans-serif;
+  font-family: 'Prompt', sans-serif !important;
 }
 
 /* GLOBAL STYLES */
@@ -67,7 +67,7 @@ button:hover {
 }
 
 .app-sidebar-notes {
-  height: calc(100vh - 78px);
+  height: calc(100vh - 203px);
   overflow-y: scroll;
 }
 .app-sidebar-note {
@@ -150,10 +150,19 @@ textarea {
 .preview-title {
   padding: 25px 25px 0 25px;
   margin: 0;
+  font-size: 2.5rem;
 }
 
 .markdown-preview {
   padding: 0 25px 25px 25px;
   font-size: 1rem;
   line-height: 2rem;
+}
+
+.Mui-focused{
+  color:black !important;
+}
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline{
+  border-color: black;
+  border-width: 2px;
 }
