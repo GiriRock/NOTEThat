@@ -19,7 +19,7 @@ const SearchBar = ({setNotes, notes}: Props) => {
     const [search, setSearch] = useState('');
     if(!dummyNote.value){
         dummyNote.value = notes
-        console.log('value updated')
+        // console.log('value updated')
     }
     useEffect(() => {
         const resultNote = dummyNote.value?.filter(

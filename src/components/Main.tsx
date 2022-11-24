@@ -1,6 +1,5 @@
 import ReactMarkdown from "react-markdown";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 
 type props = {
     activeNote: any,
