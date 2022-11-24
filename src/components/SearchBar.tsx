@@ -22,7 +22,7 @@ const SearchBar = ({setNotes, notes}: Props) => {
         console.log('value updated')
     }
     useEffect(() => {
-        var resultNote = dummyNote.value?.filter(
+        const resultNote = dummyNote.value?.filter(
             (e)=>{
                 if(e.body.toLowerCase().includes(search.toLowerCase()) || e.title.toLowerCase().includes(search.toLowerCase())){
                     return e
