@@ -31,7 +31,6 @@ body,
 }
 
 button {
-  background: none;
   border: 0;
   margin: 0;
   padding: 0;
@@ -163,6 +162,17 @@ textarea {
   color:black !important;
 }
 .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline{
-  border-color: black;
-  border-width: 2px;
+  border-color: black !important;
+  border-width: 2px !important;
+}
+
+.ant-btn-primary{
+  background-color: #1677ff !important;
+}
+.long-title h3 {
+  font-family: 'Segoe UI Light', 'Helvetica Neue Light', 'Segoe UI', 'Helvetica Neue', 'Trebuchet MS', Verdana;
+  font-weight: 200;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
 }

@@ -7,8 +7,10 @@ const Container: React.FC = () => {
 
     const [error, setError] = React.useState('')
     const [username, setUserName] = React.useState('')
+    const [name, setName] = React.useState('')
     const [password, setPassword] = React.useState('')
-
+    const [cpassword, setCPassword] = React.useState('')
+    
     const router = useRouter()
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -21,21 +23,39 @@ const Container: React.FC = () => {
                 form.style.display = 'none'
             }
         }
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`, {
+        if (password != cpassword){
+            if (loader){
+                if(form){
+                    loader.style.display = 'none'
+                    form.style.display = 'block'
+                }
+            }
+           return setError('Passwords Must Match')
+        }
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/forgotpassword`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 "email": username,
+                "name": name,
                 "password": password
             })
         })
-        if (response.status == 401) {
-            setError('Invalid Username or password')
+        if (loader){
+            if(form){
+                loader.style.display = 'none'
+                form.style.display = 'block'
+            }
+        }
+
+        if (response.status == 200) {
+            router.replace('/auth/login')
+            
         } else {
-            console.log('sucess')
-             return router.replace('/notes')
+            const data = await response.json()
+            setError(data.message)
         }
         if (loader){
             if(form){
@@ -59,7 +79,7 @@ const Container: React.FC = () => {
                 </div>
                 <div id = 'form'>
                     <h1 className="text-3xl font-semibold text-center text-black">
-                        Sign in
+                        Forgot Password?
                     </h1>
 
                     {error && (
@@ -76,24 +96,9 @@ const Container: React.FC = () => {
                                 Email
                             </label>
                             <input
-                                placeholder='Enter The Username'
                                 type="email"
+                                placeholder='Enter your Email'
                                 onChange={(e) => setUserName(e.target.value)}
-                                required
-                                className="placeholder-slate-200 focus:placeholder-gray-700 block w-full px-4 py-2 mt-2 text-white bg-black border border-black rounded-md focus:bg-white focus:outline-none focus:text-black"
-                            />
-                        </div>
-                        <div className="mb-2">
-                            <label
-                                htmlFor="password"
-                                className="block text-sm font-semibold text-gray-800"
-                            >
-                                Password
-                            </label>
-                            <input
-                                type="password"
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder='Enter The Password'
                                 required
                                 className="placeholder-slate-200 focus:placeholder-gray-700 block w-full px-4 py-2 mt-2 text-white bg-black border border-black rounded-md focus:bg-white focus:outline-none focus:text-black"
                             />
@@ -101,28 +106,21 @@ const Container: React.FC = () => {
                         <div className="mt-6 flex justify-center">
                             <button type='submit'
                                 className="w-2/4 px-4 py-2 tracking-wide text-black transition-colors duration-200 transform bg-white border border-solid border-black rounded-md hover:bg-black hover:text-white">
-                                Login
+                                Send Rest Link
                             </button>
                         </div>
                     </form>
-                    <div className='flex flex-col justify-center'>
-                    <Link
-                            href="/auth/forgotpassword"
-                            className="mt-4 text-xs font-light text-center text-gray-700 hover:underline"
-                        >
-                            Forget Password?
-                        </Link>
-                    <p className="mt-4 text-xs font-light text-center text-gray-700">
+
+                    <p className="mt-8 text-xs font-light text-center text-gray-700">
                         &nbsp;
-                        Don&apos;t have an account?&nbsp;
+                        already have an account?&nbsp;
                         <Link
-                            href="/auth/register"
+                            href="/auth/login"
                             className="font-medium text-black hover:underline"
                         >
-                            Sign up
+                            Login
                         </Link>
                     </p>
-                    </div>
                 </div>
             </div>
         </div>
