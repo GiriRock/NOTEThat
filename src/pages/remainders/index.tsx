@@ -25,12 +25,9 @@ const dataSource = new CustomStore({
 
 const currentDate = new Date();
 
-class App extends React.Component {
-  themes.initialized(()=>{
-    render() {
-      return (
-        <React.Fragment>
-          <div className="long-title">
+function App(){
+      return <>
+       <div className="long-title">
             <h3>Remainder</h3>
           </div>
           <Scheduler
@@ -47,10 +44,7 @@ class App extends React.Component {
             textExpr="summary"
             timeZone="America/Los_Angeles"
           />
-        </React.Fragment>
-      );
-    }
+      </>
   }
-  })
 
 export default App;
