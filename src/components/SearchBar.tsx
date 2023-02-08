@@ -1,5 +1,7 @@
-import { TextField } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { Input } from 'antd';
+import React, {  useState } from 'react'
+
+const { Search } = Input;
 
 type Note = {
     id: string, title: string, body: string
@@ -21,7 +23,7 @@ const SearchBar = ({setNotes, notes}: Props) => {
         dummyNote.value = notes
         // console.log('value updated')
     }
-    useEffect(() => {
+    const onSearch = ()=>{
         const resultNote = dummyNote.value?.filter(
             (e)=>{
                 if(e.body.toLowerCase().includes(search.toLowerCase()) || e.title.toLowerCase().includes(search.toLowerCase())){
@@ -30,11 +32,12 @@ const SearchBar = ({setNotes, notes}: Props) => {
             }
         )
         setNotes(resultNote)
-    }, [search])
+    }
 
     return (
         <div className='p-2 px-4'>
-            <TextField id="outlined-basic" label="Search" variant="outlined" className='w-full' onChange={(e)=>{setSearch(e.target.value)}}/>
+            {/* <TextField id="outlined-basic" label="Search" variant="outlined" /> */}
+            <Search placeholder="Search Notes" onSearch={onSearch} enterButton  onChange={(e)=>{setSearch(e.target.value)}} className='w-full' />
         </div>
     )
 }
