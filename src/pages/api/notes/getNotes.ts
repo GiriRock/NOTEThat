@@ -10,7 +10,7 @@ type User = {
 
 type Note = {
     title : string,
-  body: string
+  body: string,
 }
 
 type Notes = {
@@ -25,6 +25,10 @@ const getNotes= async <Notes>  (req: NextApiRequest, res: NextApiResponse, userO
                     where: {
                         authorId: userObj._id
                     }
+                    ,
+                    orderBy: [{
+                        createDate : 'desc'
+                    }]
                 })
                 return res.json({
                     Notes : response

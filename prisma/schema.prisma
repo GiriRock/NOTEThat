@@ -14,6 +14,8 @@ model Note {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   title    String
   body     String
+  createDate DateTime
+  lastModified DateTime
   author   User      @relation(fields: [authorId], references: [id])
   authorId String    @db.ObjectId
 }

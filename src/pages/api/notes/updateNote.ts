@@ -18,10 +18,12 @@ const updateNote = async (req: NextApiRequest, res: NextApiResponse, userObj: Us
                     }
                 })
                if(note){
+                const date:Date = new Date()
                 const updatedNote = await prisma.note.update({
                     data: {
                         "title": req.body.title,
-                        "body": req.body.body
+                        "body": req.body.body,
+                        "lastModified" : date
                     },
                     where: {
                         id: note.id
