@@ -1,7 +1,7 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
-var nodemailer = require('nodemailer');
+let nodemailer = require('nodemailer');
 
-var transporter = nodemailer.createTransport({
+let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       // user: 'testmailrapid1@gmail.com',
@@ -17,7 +17,7 @@ type Message = {
 }
 
 const sendEmail = async (req: NextApiRequest, res: NextApiResponse<Message>) => {
-    var mailOptions = {
+    let mailOptions = {
         from: 'Notethat@gmail.com',
         to: req.body.email,
         subject: req.body.subject,
