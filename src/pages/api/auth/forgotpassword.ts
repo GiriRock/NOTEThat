@@ -20,7 +20,7 @@ const forgotpassword = async (req: NextApiRequest, res: NextApiResponse<Message>
             const expiry = new Date(currentDateTime.getTime() + 600000)
             const hashedUsername =  CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(emailId));
             const hashedDateTime = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(expiry.toString()));
-            let request : sendEmail = {
+            const request : sendEmail = {
                 email: emailId,
                 subject: "reset password",
                 text: "use this url to reset the password: " + `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/resetPassword?q=${hashedUsername}&t=${hashedDateTime}`
