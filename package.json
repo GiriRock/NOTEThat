@@ -22,7 +22,9 @@
     "cookies-next": "^2.1.1",
     "dayjs": "^1.11.6",
     "devextreme": "^22.1.6",
-    "devextreme-react": "^22.1.6"
+    "devextreme-react": "^22.1.6",
+    "jsonwebtoken": "^9.0.0",
+    "next": "13.0.2"
   },
   "devDependencies": {
     "@types/cookie": "^0.5.1",
