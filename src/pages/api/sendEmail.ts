@@ -4,8 +4,6 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      // user: 'testmailrapid1@gmail.com',
-      // pass: 'hsqquupvwqalateg'
       user: `${process.env.EMAIL}`,
       pass: `${process.env.APP_PASS}`
     }
@@ -17,13 +15,13 @@ type Message = {
 }
 
 const sendEmail = async (req: NextApiRequest, res: NextApiResponse<Message>) => {
-    const mailOptions = {
-        from: 'Notethat@gmail.com',
-        to: req.body.email,
-        subject: req.body.subject,
-        text: req.body.text
-      };
     if(req.method === 'POST'){
+      const mailOptions = {
+        from: 'Notethat@gmail.com',
+        to: req.body.request.email,
+        subject: req.body.request.subject,
+        text: req.body.request.text
+      };
         transporter.sendMail(mailOptions, function(error : any, info : any){
             if (error) {
               console.log(error);

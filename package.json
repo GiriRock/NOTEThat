@@ -20,6 +20,7 @@
     "bcrypt": "^5.1.0",
     "cookie": "^0.5.0",
     "cookies-next": "^2.1.1",
+    "crypto-js": "^4.1.1",
     "dayjs": "^1.11.6",
     "devextreme": "^22.1.6",
     "devextreme-react": "^22.1.6",

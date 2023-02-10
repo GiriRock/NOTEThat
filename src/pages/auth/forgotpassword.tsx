@@ -7,14 +7,10 @@ const Container: React.FC = () => {
 
     const [error, setError] = React.useState('')
     const [username, setUserName] = React.useState('')
-    const [name, setName] = React.useState('')
-    const [password, setPassword] = React.useState('')
-    const [cpassword, setCPassword] = React.useState('')
     
     const router = useRouter()
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        setError('')
         const loader = document.getElementById('loader')
         const form = document.getElementById('form')
         if (loader) {
@@ -23,13 +19,7 @@ const Container: React.FC = () => {
                 form.style.display = 'none'
             }
         }
-        if (password != cpassword){
-            if (loader){
-                if(form){
-                    loader.style.display = 'none'
-                    form.style.display = 'block'
-                }
-            }
+        if (username === null ){
            return setError('Passwords Must Match')
         }
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/forgotpassword`, {
@@ -38,9 +28,7 @@ const Container: React.FC = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "email": username,
-                "name": name,
-                "password": password
+                "email": username
             })
         })
         if (loader){
@@ -110,17 +98,6 @@ const Container: React.FC = () => {
                             </button>
                         </div>
                     </form>
-
-                    <p className="mt-8 text-xs font-light text-center text-gray-700">
-                        &nbsp;
-                        already have an account?&nbsp;
-                        <Link
-                            href="/auth/login"
-                            className="font-medium text-black hover:underline"
-                        >
-                            Login
-                        </Link>
-                    </p>
                 </div>
             </div>
         </div>

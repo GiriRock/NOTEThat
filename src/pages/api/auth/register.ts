@@ -1,6 +1,5 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 
 type Message = {
     message : string
