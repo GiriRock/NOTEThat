@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import decodeJWT from "../../../middlewares/decodeJWT";
 import { prisma } from "../../../server/db/client";
-import { date } from "zod";
 
 type User = {
     _id: string,
