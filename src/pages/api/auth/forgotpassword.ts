@@ -2,7 +2,8 @@ import { type NextApiRequest, type NextApiResponse } from "next";
 const CryptoJS = require('crypto-js');
 
 type Message = {
-    message : string
+    message : string,
+    response: string
 }
 
 type sendEmail = {
@@ -35,15 +36,15 @@ const forgotpassword = async (req: NextApiRequest, res: NextApiResponse<Message>
                 })
             })          
             const responsejson = await response.json()
-            res.status(200).json({message: 'Email sent successfully'})
+            res.status(200).json({message: 'Email sent successfully', response : responsejson})
             return
-        } catch (error) {
-            res.status(400).json({message: 'invalid request'})
+        } catch (error: any) {
+            res.status(400).json({message: 'invalid request', response : error.message})
             return
         }
     
     }
-    res.status(405).json({message: `${req.method} not allowed`})
+    res.status(405).json({message: `${req.method} not allowed`, response: 'failed'})
 }
 
 export default forgotpassword;

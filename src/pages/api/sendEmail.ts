@@ -18,9 +18,9 @@ const sendEmail = async (req: NextApiRequest, res: NextApiResponse<Message>) => 
     if(req.method === 'POST'){
       const mailOptions = {
         from: 'Notethat@gmail.com',
-        to: req.body.request.email,
+        to: req.body.request.email?req.body.request.email:"",
         subject: req.body.request.subject,
-        text: req.body.request.text
+        text: req.body.request.text 
       };
         transporter.sendMail(mailOptions, function(error : any, info : any){
             if (error) {
