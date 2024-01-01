@@ -1,23 +1,21 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
+import * as React from 'react';
 // import InboxIcon from '@mui/icons-material/MoveToInbox';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Logout  from '@mui/icons-material/Logout';
 // import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import Toolbar from '@mui/material/Toolbar';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const drawerWidth = 240;
 
@@ -34,10 +32,19 @@ interface Props {
 export default function SideNavBar(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const router = useRouter()
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  const handleLogout = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/logout`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    return router.replace('/notes')
+  }
 
   const drawer = (
     <div className='h-screen bg-black'>
@@ -63,6 +70,16 @@ export default function SideNavBar(props: Props) {
               <ListItemText primary={'Remainders'} />
             </ListItemButton>
           </Link>
+        </ListItem>
+        <ListItem disablePadding className='bg-black text-white'>
+          <button onClick={handleLogout}>
+            <ListItemButton>
+              <ListItemIcon>
+                <Logout className='text-white'/>
+              </ListItemIcon>
+              <ListItemText className='text-white' primary={'Logout'} />
+            </ListItemButton>
+          </button>
         </ListItem>
       </List>
     </div>

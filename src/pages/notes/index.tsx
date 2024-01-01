@@ -1,8 +1,6 @@
-import { GetServerSideProps, type NextPage } from "next";
-import Link from "next/link";
+import { GetServerSideProps } from "next";
 import { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import DisplayNote from "../../components/DisplayNote";
+import { ToastContainer, toast } from "react-toastify";
 import Main from "../../components/Main";
 import Sidebar from "../../components/SideBar";
 import SideNavBar from "../../components/SideNavBar";
@@ -40,6 +38,7 @@ const Home = ({ Notes, UserInfo }: props) => {
       body: "",
       fv: true
     };
+    console.log(newNote)
     setNotes([newNote, ...notes]);
     setActiveNote(newNote.id);
   };
